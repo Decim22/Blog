@@ -20,17 +20,20 @@
   <body>
 
     <div class="container">
-    @include('blog.layout.header')
+      @include('blog.partial.header')
 
-    @include('blog.layout.nav')
+      @include('blog.partial.nav')
+    </div>
+     <main role="main" class="container">
+      <div class="row">
+        @yield('content')
 
-    @include('blog.layout.jumbotron')
+        @include('blog.partial.sidebar')
 
-    @include('blog.layout.featured')
+      </div><!-- /.row -->
 
-    @yield('content')
-
-    @include('blog.layout.footer')
+    </main><!-- /.container -->
+   @include('blog.partial.footer')
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

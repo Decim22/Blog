@@ -9,25 +9,33 @@ class PostsController extends Controller
 {
     public function index(Request $request) {
     // $posts = Post::latest()->simplePaginate(3);
-    $posts = Post::latest();
-    if(isset($request['month'])) {
-        $posts = $posts->whereMonth('created_at', Carbon::parse($request['month'])->month);
+
+    $posts = Post::latest()->filter(request(['month', 'year']))->simplePaginate(3);
+
+    $archives = Post::archives();
+		return view('blog.index')->with('posts', $posts);
     }
-    if(isset($request['year'])) {
-        $posts = $posts->whereYear('created_at', $request['year']);
-    }
-    $posts = $posts->simplePaginate(3);
-    $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-    ->groupBy('year', 'month')
-    ->orderByRaw('year, month desc')
-    ->get()
-    ->toArray();
-    // dd($archives);
-		return view('blog.index',compact('posts', 'archives'));
-    }
+
     public function show($id)
     {
         $post = Post::find($id);
         return view('blog.show', compact('post'));
+    }
+
+    public function create() {
+        return view('dashboard.create');
+    }
+
+    public function store(Request $request) {
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+        $post = new Post;
+        $post->user_id = Auth()->user()->id;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+        return redirect('/admin')->with('success', 'Post Created');
     }
 }

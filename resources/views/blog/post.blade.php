@@ -1,15 +1,11 @@
-@if(count($posts))
-@foreach($posts as $post)
 <div class="blog-post">
 	<h2 class="blog-post-title">
-		<a href="/posts/{{$post->id}}">{{ $post->title}}</a>
+		<a href="/posts/{{$post->id}}">{{$post->title}}</a>
 	</h2>
 	<p class="blog-post-meta">
-		<a href="#">{{$post->user->name}}</a> on {{$post->created_at->format('d-m-Y H:i:s') }}
+		<a href="#">{{$post->user->name}}</a> on
+		{{$post->created_at->format('d-m-Y H:i:s') }}
 	</p>
-	{!! $post->body!!}
+
+	{!! $post->body !!}
 </div>
-@endforeach
-@else
-<h3>Nothing published yet..</h3>
-@endif

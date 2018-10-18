@@ -8,11 +8,13 @@ Route::get('/', function () {
 Route::get('/','PostsController@index');
 Route::get('/posts/{id}','PostsController@show');
 Route::view('login','dashboard.sign-in');
-
+Route::post('/posts/{post}/comments', 'CommentsController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::view('/','dashboard.index');
+    Route::get('/create', 'PostsController@create');
+    Route::post('store', 'PostsController@store');
 });

@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Post;
-
+use App\Tag;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -16,7 +16,10 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('blog.partial.sidebar', function($view) {
 
-            $view->with('archives', Post::archives());
+            // $view->with('archives', Post::archives());
+            $archives = Post::archives();
+            $tags = Tag::pluck('name');
+            $view->with(compact('archives', 'tags'));
         });
     }
 

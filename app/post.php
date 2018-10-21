@@ -33,4 +33,7 @@ class Post extends Model
 	  public function addComments($comment) {
 	  	$this->comments()->create(['comment'=>$comment]);
 	  }
+	  public function tags() {
+	  	return $this->belongsToMany(\App\Tag::class);
+	  }
 }

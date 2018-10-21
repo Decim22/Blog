@@ -8,4 +8,13 @@
 	</p>
 
 	{!! $post->body !!}
+	@if(count($post->tags))
+	<hr>
+	<p>
+		<strong>Tags:</strong>
+		@foreach($post->tags as $tag)
+		<a href="/posts/tags/{{$tag->name}}">{{$tag->name}}</a>
+		@endforeach
+	</p>
+	@endif
 </div>

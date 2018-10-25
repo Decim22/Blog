@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use App\Post;
 use App\Comment;
+use App\Mail\Welcome;
+use App\Mail\WelcomeAgain;
 class CommentsController extends Controller
 {
   	public function store(Post $post) {
@@ -14,7 +16,8 @@ class CommentsController extends Controller
   		// 	'comment' => request('comment'),
   		// 	'post_id' => $post->id
   		// ]);
-  		$post->addComments(request('comment'));
+  		$post->addComments(request());
+  		\Mail::to(request('email'))->send(new WelcomeAgain($post));
   		// return back();
   		return Redirect::to(URL::previous()."#commentForm");
   	}

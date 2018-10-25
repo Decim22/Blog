@@ -38,4 +38,5 @@ class PostsController extends Controller
         $post->save();
         return redirect('/admin')->with('success', 'Post Created');
     }
+    
 }

@@ -30,10 +30,13 @@ class Post extends Model
 	  public function comments() {
 	  	return $this->hasMany(Comment::class);
 	  }
-	  public function addComments($comment) {
-	  	$this->comments()->create(['comment'=>$comment]);
+	  public function addComments($request) {
+	  	$this->comments()->create($request->all());
 	  }
 	  public function tags() {
 	  	return $this->belongsToMany(\App\Tag::class);
+	  }
+	  public function categories() {
+	  	return $this->belongsToMany(\App\Category::class);
 	  }
 }

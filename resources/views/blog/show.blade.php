@@ -7,21 +7,8 @@
   </h3>
 
 @include('blog.post')
-  <hr>
-  <div>
-    <div class="card-block" id="commentForm">
-      <form action="/posts/{{$post->id}}/comments" method="POST">
-        @csrf
-        <div class="form-group">
-          <textarea id="body" class="form-control" placeholder="Your comment here.." name="comment"></textarea>
-        </div>
-        <div class="form-group text-center">
-          <button class="btn btn-outline-primary">Add comment</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <hr>
+@include('blog.partial.commentform')
+
   @if(count($post->comments))
   <ul class="list-group">
     @foreach($post->comments as $comment)

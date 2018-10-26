@@ -16,7 +16,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::view('/','dashboard.index');
+    Route::get('/','PostsController@index');
     Route::get('/create', 'PostsController@create');
     Route::post('store', 'PostsController@store');
 });

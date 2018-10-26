@@ -3,17 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use App\Post;
 use Carbon\Carbon;
+use App\Category;
 class PostsController extends Controller
 {
     public function index(Request $request) {
     // $posts = Post::latest()->simplePaginate(3);
 
-    $posts = Post::latest()->filter(request(['month', 'year']))->simplePaginate(3);
+  //       $posts = Post::latest()->filter(request(['month', 'year']))->simplePaginate(3);
+  //       $archives = Post::archives();
+		// return view('blog.index')->with('posts', $posts);
 
-    $archives = Post::archives();
-		return view('blog.index')->with('posts', $posts);
+        // Experiment
+        $prefix = $request->route()->getPrefix();
+        if ($prefix == '/admin') {
+            $posts = Post::latest()->filter(request(['month', 'year']))->paginate(10);
+            return view('dashboard.index')->with('posts', $posts);
+        }
+        else {
+            $posts = Post::latest()->where('status', 'published')->filter(request(['month', 'year']))->simplePaginate(3);
+            $archives = Post::archives();
+            return view('blog.index')->with('posts', $posts);
+        }
     }
 
     public function show($id)
@@ -23,7 +36,8 @@ class PostsController extends Controller
     }
 
     public function create() {
-        return view('dashboard.create');
+        $categories = Category::all();
+        return view('dashboard.create')->with('categories' , $categories);
     }
 
     public function store(Request $request) {
@@ -35,8 +49,11 @@ class PostsController extends Controller
         $post->user_id = Auth()->user()->id;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        $post->status = $request->input('status');
+        dd($post);
         $post->save();
         return redirect('/admin')->with('success', 'Post Created');
+
     }
     
 }

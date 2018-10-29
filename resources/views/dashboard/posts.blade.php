@@ -1,6 +1,6 @@
 @extends('dashboard.layout.main')
 @section('content')
-	<h1>Todos	<a href="admin/create" class="btn btn-primary">Add new post</a></h1>
+	<h1>Posts	<a href="admin/create" class="btn btn-primary">Add new post</a></h1>
 	@if(count($posts) > 0)
 	@foreach($posts as $post)
 		<div class="card">

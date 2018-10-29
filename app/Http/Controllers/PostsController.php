@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use App\Post;
 use Carbon\Carbon;
 use App\Category;
+use App\Tag;
 class PostsController extends Controller
 {
     public function index(Request $request) {
@@ -23,7 +23,7 @@ class PostsController extends Controller
             return view('dashboard.index')->with('posts', $posts);
         }
         else {
-            $posts = Post::latest()->where('status', 'published')->filter(request(['month', 'year']))->simplePaginate(3);
+            $posts = Post::latest()->where('status', '2')->filter(request(['month', 'year']))->simplePaginate(3);
             $archives = Post::archives();
             return view('blog.index')->with('posts', $posts);
         }
@@ -47,10 +47,10 @@ class PostsController extends Controller
         ]);
         $post = new Post;
         $post->user_id = Auth()->user()->id;
+        $post->category_id = $request->input('category_id');
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $post->status = $request->input('status');
-        dd($post);
         $post->save();
         return redirect('/admin')->with('success', 'Post Created');
 

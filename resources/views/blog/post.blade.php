@@ -5,9 +5,9 @@
 	<p class="blog-post-meta">
 		<a href="#">{{$post->user->name}}</a> on
 		{{$post->created_at->format('d-m-Y H:i:s') }}
-		@foreach($post->categories as $category)
-		<a href="/category/{{$category->name}}">{{$category->name}}</a>
-		@endforeach
+
+		<a href="/category/{{$post->category_id}}">{{$post->category->name}}</a>
+
 	</p>
 
 	{!! $post->body !!}

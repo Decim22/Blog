@@ -2,7 +2,7 @@
   <nav class="nav d-flex justify-content-between">
 
     @foreach($categories as $category)
-    <a class="p-2 text-muted" href="/category/{{$category->name}}">{{$category->name}}</a>
+    <a class="p-2 text-muted" href="/category/{{$category->id}}">{{$category->name}}</a>
     @endforeach
   </nav>
 </div>

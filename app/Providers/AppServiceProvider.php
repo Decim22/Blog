@@ -25,8 +25,9 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('blog.partial.nav', function($view) {
             $categories = Category::all();
-            $view->with(compact('categories'));
+            $view->with('categories', $categories);
         });
+
     }
 
     /**

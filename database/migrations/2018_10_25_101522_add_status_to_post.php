@@ -14,7 +14,7 @@ class AddStatusToPost extends Migration
     public function up()
     {
         Schema::table('posts',  function (Blueprint $table) {
-            $table->string('status')->after('user_id');
+            $table->integer('status')->after('user_id');
         });
     }
 

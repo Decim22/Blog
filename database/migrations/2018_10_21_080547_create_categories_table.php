@@ -18,11 +18,6 @@ class CreateCategoriesTable extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
-        Schema::create('post_category', function (Blueprint $table) {
-            $table->integer('post_id');
-            $table->integer('category_id');
-            $table->primary(['post_id', 'category_id']);
-        });
     }
 
     /**

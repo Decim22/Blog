@@ -7,5 +7,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'title' => $faker->sentence(5),
         'body' => $faker->text(2500),
         'user_id' => 1,
+        'category_id' => 1,
+        'status' => 0
     ];
 });

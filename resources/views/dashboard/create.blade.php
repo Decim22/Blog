@@ -18,16 +18,18 @@
       <label>Status *</label>
     <div class="form-group">
       <select name="status" class="form-control">
-        <option value="draft">draft</option>
-        <option value="pending">pending</option>
-        <option value="published">published</option>
+        <option value="0">draft</option>
+        <option value="1">pending</option>
+        <option value="2">published</option>
       </select>
+
     </div>
     <div class="form-group">
-      @foreach($categories as $category)
-      <input type="checkbox" name="category" value="{{$category->id}}">
-         {{$category->name}}
-      @endforeach
+      <select name="category_id" class="form-control">
+        @foreach($categories as $category)
+        <option value="{{$category->id}}">{{$category->name}}</option>
+        @endforeach
+      </select>
     </div>
     <div>
       <input type="submit" class="btn btn-success btn-send" value="Create post">
